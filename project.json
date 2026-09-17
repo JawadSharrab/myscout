@@ -1,0 +1,18 @@
+{
+  "overview": "MyScout is a discovery app for student extracurricular opportunities across Amman, with a map, saved lists, and organizer-created events.",
+  "features": [
+    "Browse and search student opportunities",
+    "Interactive map with synchronized sidebar",
+    "Save opportunities to a shortlist",
+    "Light and dark theme toggle",
+    "Organizer accounts that can create events"
+  ],
+  "category": "productivity",
+  "tags": [
+    "events",
+    "map",
+    "discovery",
+    "students"
+  ],
+  "last_updated": "2026-09-17T03:36:53.362Z"
+}

@@ -1,0 +1,307 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type Category__1002989375 =
+  {
+    #academic;
+    #arts;
+    #athletics;
+    #business;
+    #coding;
+    #community;
+    #competition;
+    #conference;
+    #creative;
+    #culture;
+    #debate;
+    #design;
+    #entrepreneurship;
+    #environment;
+    #health;
+    #internship;
+    #leadership;
+    #scholarship;
+    #volunteering
+  };
+type Category__207598402 =
+  {
+    #academic;
+    #arts;
+    #athletics;
+    #business;
+    #coding;
+    #community;
+    #competition;
+    #conference;
+    #creative;
+    #culture;
+    #debate;
+    #design;
+    #entrepreneurship;
+    #environment;
+    #health;
+    #internship;
+    #leadership;
+    #scholarship;
+    #volunteering
+  };
+type Category__403107212 =
+  {
+    #academic;
+    #arts;
+    #athletics;
+    #business;
+    #coding;
+    #community;
+    #competition;
+    #conference;
+    #creative;
+    #culture;
+    #debate;
+    #design;
+    #entrepreneurship;
+    #environment;
+    #health;
+    #internship;
+    #leadership;
+    #scholarship;
+    #volunteering
+  };
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type Data__846125122<T> = {var count : Nat__227979830; elements : [var ?T]};
+type FactorRatings__168654018 =
+  {
+    difficulty : Float;
+    leadership : Float;
+    networking : Float;
+    priceValue : Float;
+    recognition : Float;
+    relevance : Float;
+    skillDevelopment : Float;
+    timeCommitment : Float;
+    uniApplicationValue : Float;
+    worthYourTime : Float
+  };
+type FactorRatings__459956339 =
+  {
+    difficulty : Float;
+    leadership : Float;
+    networking : Float;
+    priceValue : Float;
+    recognition : Float;
+    relevance : Float;
+    skillDevelopment : Float;
+    timeCommitment : Float;
+    uniApplicationValue : Float;
+    worthYourTime : Float
+  };
+type FactorRatings__719904971 =
+  {
+    difficulty : Float;
+    leadership : Float;
+    networking : Float;
+    priceValue : Float;
+    recognition : Float;
+    relevance : Float;
+    skillDevelopment : Float;
+    timeCommitment : Float;
+    uniApplicationValue : Float;
+    worthYourTime : Float
+  };
+type Internal__23036296<T> =
+  {children : [var ?Node__620761243<T>]; data : Data__846125122<T>};
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type Leaf__948582970<T> = {data : Data__846125122<T>};
+type List__355132335<T> =
+  {
+    var blockIndex : Nat__227979830;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__227979830
+  };
+type List__836382695<T> = List__355132335<T>;
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type Marker__577675266 = {x : Float; y : Float};
+type Marker__799127547 = {x : Float; y : Float};
+type Marker__98864532 = {x : Float; y : Float};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__665018719 =
+  {
+    accessControlState : AccessControlState__201339279;
+    eventState : {var nextEventId : Nat};
+    interests : Map__230067015<UserId__197769228, [Category__1002989375]>;
+    opportunities : List__836382695<NewOpportunity__503576355>;
+    organizerEvents : Map__230067015<UserId__197769228, [Nat]>;
+    organizers : Map__230067015<UserId__197769228, Organizer__326634099>;
+    savedLists : Map__230067015<UserId__197769228, Set__70493310<Nat>>
+  };
+type NewActor__772334770 =
+  {
+    accessControlState : AccessControlState__201339279;
+    interests : Map__230067015<UserId__903714146, [Category__207598402]>;
+    opportunities : List__836382695<Opportunity__527028138>;
+    savedLists : Map__230067015<UserId__903714146, Set__70493310<Nat>>
+  };
+type NewOpportunity__503576355 =
+  {
+    ageRange : Text;
+    applyUrl : ?Text;
+    category : Category__1002989375;
+    cost : Text;
+    date : Nat;
+    deadline : Nat;
+    description : Text;
+    duration : Text;
+    factorRatings : FactorRatings__719904971;
+    id : Nat;
+    isPrototype : Bool;
+    location : Text;
+    marker : Marker__799127547;
+    organizer : Text;
+    registrationUrl : ?Text;
+    status : Status__788555775;
+    title : Text;
+    venue : Text
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type Node__620761243<T> =
+  {#internal : Internal__23036296<T>; #leaf : Leaf__948582970<T>};
+type OldActor__358288849 =
+  {
+    accessControlState : AccessControlState__201339279;
+    interests : Map__230067015<UserId__197769228, [Category__1002989375]>;
+    opportunities : List__836382695<OldOpportunity__847014148>;
+    savedLists : Map__230067015<UserId__197769228, Set__70493310<Nat>>
+  };
+type OldActor__887486218 = {};
+type OldOpportunity__847014148 =
+  {
+    ageRange : Text;
+    applyUrl : ?Text;
+    category : Category__1002989375;
+    cost : Text;
+    date : Nat;
+    deadline : Nat;
+    description : Text;
+    distanceKm : Float;
+    duration : Text;
+    factorRatings : FactorRatings__719904971;
+    id : Nat;
+    isPrototype : Bool;
+    location : Text;
+    marker : Marker__799127547;
+    organizer : Text;
+    registrationUrl : ?Text;
+    status : Status__788555775;
+    title : Text;
+    venue : Text
+  };
+type OpportunityId__1013478634 = Nat;
+type Opportunity__527028138 =
+  {
+    ageRange : Text;
+    applyUrl : ?Text;
+    category : Category__207598402;
+    cost : Text;
+    date : Nat;
+    deadline : Nat;
+    description : Text;
+    distanceKm : Float;
+    duration : Text;
+    factorRatings : FactorRatings__168654018;
+    id : Nat;
+    isPrototype : Bool;
+    location : Text;
+    marker : Marker__98864532;
+    organizer : Text;
+    registrationUrl : ?Text;
+    status : Status__275544522;
+    title : Text;
+    venue : Text
+  };
+type Opportunity__657233419 =
+  {
+    ageRange : Text;
+    applyUrl : ?Text;
+    category : Category__403107212;
+    cost : Text;
+    date : Timestamp__301639476;
+    deadline : Timestamp__301639476;
+    description : Text;
+    duration : Text;
+    factorRatings : FactorRatings__459956339;
+    id : OpportunityId__1013478634;
+    isPrototype : Bool;
+    location : Text;
+    marker : Marker__577675266;
+    organizer : Text;
+    registrationUrl : ?Text;
+    status : Status__991454190;
+    title : Text;
+    venue : Text
+  };
+type Organizer__326634099 =
+  {createdAt : Nat; id : UserId__197769228; name : Text};
+type Organizer__953862363 =
+  {createdAt : Timestamp__301639476; id : UserId__158757552; name : Text};
+type Set__1053317950<T> =
+  {var root : Node__620761243<T>; var size : Nat__227979830};
+type Set__70493310<T> = Set__1053317950<T>;
+type Status__275544522 = {#closed; #closingSoon; #open};
+type Status__788555775 = {#closed; #closingSoon; #open};
+type Status__991454190 = {#closed; #closingSoon; #open};
+type Timestamp__301639476 = Nat;
+type UserId__158757552 = Principal;
+type UserId__197769228 = Principal;
+type UserId__903714146 = Principal;
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "20260916_000000" : (_old : OldActor__887486218) -> NewActor__772334770;
+  "20260917_000000" : (old : OldActor__358288849) -> NewActor__665018719
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable eventState : {var nextEventId : OpportunityId__1013478634};
+  stable interests :
+    {
+      var root : Node__204828119<UserId__158757552, [Category__403107212]>;
+      var size : Nat__227979830
+    };
+  stable opportunities :
+    {
+      var blockIndex : Nat__227979830;
+      var blocks : [var [var ?Opportunity__657233419]];
+      var elementIndex : Nat__227979830
+    };
+  stable organizerEvents :
+    {
+      var root :
+        Node__204828119<UserId__158757552, [OpportunityId__1013478634]>;
+      var size : Nat__227979830
+    };
+  stable organizers :
+    {
+      var root : Node__204828119<UserId__158757552, Organizer__953862363>;
+      var size : Nat__227979830
+    };
+  stable savedLists :
+    {
+      var root :
+        Node__204828119<UserId__158757552,
+                         Set__70493310<OpportunityId__1013478634>>;
+      var size : Nat__227979830
+    }
+};
