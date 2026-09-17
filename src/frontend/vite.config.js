@@ -1,7 +1,19 @@
 import { fileURLToPath, URL } from "url";
+import fs from "fs";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import environment from "vite-plugin-environment";
+import { localBackendPlugin } from "./vite-plugin-local-backend.js";
+
+// Read the PocketIC HTTP Gateway port (written by dev-setup-backend.cjs).
+// Falls back to the default dfx replica port when the file is absent.
+let pocketicProxyTarget = "http://127.0.0.1:4943";
+try {
+  const port = fs.readFileSync("/tmp/pocketic-gateway-port", "utf-8").trim();
+  if (port) pocketicProxyTarget = `http://127.0.0.1:${port}`;
+} catch {
+  // not available yet — use default
+}
 
 const ii_url =
   process.env.DFX_NETWORK === "local"
@@ -28,9 +40,10 @@ export default defineConfig({
     },
   },
   server: {
+    host: true,
     proxy: {
       "/api": {
-        target: "http://127.0.0.1:4943",
+        target: pocketicProxyTarget,
         changeOrigin: true,
       },
     },
@@ -40,6 +53,7 @@ export default defineConfig({
     environment("all", { prefix: "DFX_" }),
     environment(["II_URL"]),
     react(),
+    localBackendPlugin(),
   ],
   resolve: {
     alias: [
