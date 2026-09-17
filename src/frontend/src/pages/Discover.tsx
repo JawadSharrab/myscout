@@ -223,7 +223,7 @@ function OpportunityCard({
 }
 
 // Featured Pick / spotlight card. Renders the highest-overall-scored
-// opportunity from the catalog over the Amman arches illustration. The app has
+// opportunity from the catalog over a dark, moody gradient. The app has
 // no user location, so the metric line deliberately omits any distance/closest
 // value — the third metric is the cost (Free/Paid) instead.
 function FeaturedPick() {
@@ -242,57 +242,48 @@ function FeaturedPick() {
   return (
     <section className="mx-auto max-w-7xl px-5 md:px-8">
       <div
-        className="relative flex min-h-[22rem] flex-col overflow-hidden rounded-[2rem] bg-card text-foreground shadow-elevated md:min-h-[26rem]"
+        className="relative flex min-h-[22rem] flex-col overflow-hidden rounded-[2rem] shadow-elevated md:min-h-[26rem]"
         data-ocid="featured_pick"
       >
-        {/* Illustration panel — the card's visual. The artwork's dominant ground
-            is cream/off-white inside a thin black outer matte, so the card base
-            matches that cream and the image is scaled up slightly to crop the
-            matte out of view. No full-bleed scrim: the illustration reads
-            clearly, with only a localized bottom gradient behind the copy. */}
-        <img
-          src="/assets/featured-pick-amman.png"
-          alt="Illustration of Amman-style arches and domes in terracotta, cream, and dusty blue"
-          className="absolute inset-0 size-full scale-[1.14] object-cover object-center"
-        />
-
-        {/* Localized bottom-only wash so the copy block stays legible without
-            washing out the illustration above it. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-card via-card/85 to-transparent" />
+        {/* Moody gradient backdrop — dark slate blue in the top-left fading
+            into a deep navy toward the bottom-right, with a soft glow accent
+            to keep the card from reading flat. */}
+        <div className="absolute inset-0 bg-[radial-gradient(135%_135%_at_15%_10%,#1a2b3d_0%,#0a1626_100%)]" />
+        <div className="pointer-events-none absolute -left-24 -top-24 size-80 rounded-full bg-[#2b3f55]/50 blur-3xl" />
 
         <div className="relative flex flex-1 flex-col justify-end p-8 md:max-w-2xl md:justify-center md:p-12">
-          <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">
+          <p className="text-xs font-semibold tracking-[0.18em] text-slate-300 uppercase">
             Featured pick
           </p>
 
           <div className="mt-4 flex flex-wrap gap-2">
-            <span className="rounded-full border border-primary/30 bg-card/70 px-3 py-1 text-xs font-semibold text-primary">
+            <span className="rounded-full border border-white/30 px-3 py-1 text-xs font-semibold text-white">
               Top signal
             </span>
-            <span className="rounded-full border border-primary/30 bg-card/70 px-3 py-1 text-xs font-semibold text-primary">
+            <span className="rounded-full border border-white/30 px-3 py-1 text-xs font-semibold text-white">
               Uni value
             </span>
           </div>
 
-          <h2 className="mt-5 max-w-2xl font-display text-3xl font-bold italic leading-tight text-foreground md:text-4xl">
+          <h2 className="mt-5 max-w-2xl font-display text-3xl font-bold leading-tight text-white md:text-4xl">
             {featured.title}
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-3 text-sm font-light text-slate-200">
             {featured.organizer}
           </p>
 
-          <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
+          <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-light text-slate-100">
             <span>{score.toFixed(1)} / 5</span>
-            <span className="text-border">·</span>
+            <span className="text-white/30">·</span>
             <span>{uniValue.toFixed(1)} university application value</span>
-            <span className="text-border">·</span>
+            <span className="text-white/30">·</span>
             <span>{isFree ? "Free" : featured.cost}</span>
           </div>
 
           <Link
             to="/opportunity/$id"
             params={{ id: featured.id.toString() }}
-            className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
+            className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#0a1626] transition-transform hover:-translate-y-0.5"
             data-ocid="featured_pick_button"
           >
             Explore the pick

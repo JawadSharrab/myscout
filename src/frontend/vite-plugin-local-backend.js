@@ -15,10 +15,14 @@ export function localBackendPlugin() {
     name: "local-backend",
     configureServer(server) {
       server.middlewares.use("/env.json", (_req, res) => {
-        const protocol =
-          _req.headers["x-forwarded-proto"] || "https";
-        const host = _req.headers.host;
-        const origin = `${protocol}://${host}`;
+        // The public origin the browser actually uses. The sandbox host in the
+        // forwarded Host header is NOT the public host the preview runs on —
+        // the platform exposes the sandbox at https://3000-$BASE44_PUBLIC_HOST_SUFFIX.
+        // Prefer that; fall back to the forwarded headers.
+        const publicSuffix = process.env.BASE44_PUBLIC_HOST_SUFFIX;
+        const origin = publicSuffix
+          ? `https://3000-${publicSuffix}`
+          : `${_req.headers["x-forwarded-proto"] || "https"}://${_req.headers.host}`;
 
         let canisterId = "undefined";
         try {
