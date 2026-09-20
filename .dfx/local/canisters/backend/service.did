@@ -1,0 +1,221 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserId = principal;
+type Timestamp = nat;
+type Status = 
+ variant {
+   closed;
+   closingSoon;
+   open;
+ };
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type RecommendationMode = 
+ variant {
+   bestValue;
+   closingSoon;
+   highestRated;
+   skills;
+   university;
+ };
+type RatingExplanation = 
+ record {
+   factors: vec FactorScore;
+   overall: float64;
+ };
+type Organizer = 
+ record {
+   createdAt: Timestamp;
+   id: UserId;
+   name: text;
+ };
+type OpportunityId = nat;
+type OpportunityFilter = 
+ record {
+   category: opt Category;
+   cost: opt CostFilter;
+   status: opt Status;
+ };
+type Opportunity = 
+ record {
+   ageRange: text;
+   applyUrl: opt text;
+   category: Category;
+   cost: text;
+   date: Timestamp;
+   deadline: Timestamp;
+   description: text;
+   duration: text;
+   factorRatings: FactorRatings;
+   id: OpportunityId;
+   isPrototype: bool;
+   location: text;
+   marker: Marker;
+   organizer: text;
+   registrationUrl: opt text;
+   status: Status;
+   title: text;
+   venue: text;
+ };
+type Marker = 
+ record {
+   x: float64;
+   y: float64;
+ };
+type FactorScore = 
+ record {
+   name: text;
+   rating: float64;
+   weight: float64;
+ };
+type FactorRatings = 
+ record {
+   difficulty: float64;
+   leadership: float64;
+   networking: float64;
+   priceValue: float64;
+   recognition: float64;
+   relevance: float64;
+   skillDevelopment: float64;
+   timeCommitment: float64;
+   uniApplicationValue: float64;
+   worthYourTime: float64;
+ };
+type EventInput = 
+ record {
+   category: Category;
+   cost: text;
+   date: Timestamp;
+   deadline: Timestamp;
+   description: text;
+   location: text;
+   title: text;
+   venue: text;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type CostFilter = 
+ variant {
+   free;
+   paid;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type Category = 
+ variant {
+   academic;
+   arts;
+   athletics;
+   business;
+   coding;
+   community;
+   competition;
+   conference;
+   creative;
+   culture;
+   debate;
+   design;
+   entrepreneurship;
+   environment;
+   health;
+   internship;
+   leadership;
+   scholarship;
+   volunteering;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  /// Create a new event. Requires a signed-in organizer.
+  createEvent: (input: EventInput) -> (Opportunity);
+  /// Delete the caller's account, wiping saved opportunities and interests.
+  /// Requires a signed-in caller and the confirmation string "DELETE".
+  deleteAccount: (confirmation: text) -> ();
+  execute: (qJson: text) -> (Result) query;
+  /// Filter opportunities to those matching the caller's interests. Requires a signed-in caller.
+  filterByInterests: () -> (vec Opportunity) query;
+  /// Filter opportunities by category, cost, and status. Public.
+  filterOpportunities: (filter: OpportunityFilter) -> (vec Opportunity) query;
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Return the full opportunity catalog. Public; no sign-in required.
+  getCatalog: () -> (vec Opportunity) query;
+  /// Return the 19 opportunity categories. Public.
+  getCategories: () -> (vec Category) query;
+  /// Return the caller's selected interest categories. Requires a signed-in caller.
+  getInterests: () -> (vec Category) query;
+  /// Look up a single opportunity by id. Public.
+  getOpportunity: (id: OpportunityId) -> (opt Opportunity) query;
+  /// Return the caller's organizer profile, if any. Requires a signed-in caller.
+  getOrganizerProfile: () -> (opt Organizer) query;
+  /// Return the per-factor rating breakdown for an opportunity. Public.
+  getRatingExplanation: (id: OpportunityId) -> (opt RatingExplanation) query;
+  /// Return the caller's saved opportunities. Requires a signed-in caller.
+  getSavedOpportunities: () -> (vec Opportunity) query;
+  isCallerAdmin: () -> (bool) query;
+  /// Whether the caller is a registered organizer. Requires a signed-in caller.
+  isOrganizer: () -> (bool) query;
+  /// Return the events created by the caller. Requires a signed-in organizer.
+  listMyEvents: () -> (vec Opportunity) query;
+  /// Return opportunities ordered by the given recommendation mode. Public.
+  recommend: (mode: RecommendationMode) -> (vec Opportunity) query;
+  /// Re-rank/surface opportunities by the caller's interests. Requires a signed-in caller.
+  recommendByInterests: () -> (vec Opportunity) query;
+  /// Save an opportunity to the caller's saved list. Requires a signed-in caller.
+  saveOpportunity: (id: OpportunityId) -> ();
+  schema: () -> (text) query;
+  /// Search opportunities by keyword across title, organizer, and description. Public.
+  searchOpportunities: (keyword: text) -> (vec Opportunity) query;
+  /// Set the caller's selected interest categories (multi-select, replaces). Requires a signed-in caller.
+  setInterests: (selected: vec Category) -> ();
+  /// Sign up the caller as an organizer. Requires a signed-in caller.
+  signUpAsOrganizer: (name: text) -> (Organizer);
+  /// Remove an opportunity from the caller's saved list. Requires a signed-in caller.
+  unsaveOpportunity: (id: OpportunityId) -> ();
+}

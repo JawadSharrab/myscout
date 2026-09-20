@@ -1,0 +1,16 @@
+FROM node:22-slim
+
+# dfx needs curl to download its replica runtime on first start
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install the dfx binary (single static binary, ~112 MB)
+ARG DFX_VERSION=0.32.0
+RUN curl -fsSL -o /tmp/dfx.tar.gz \
+      "https://github.com/dfinity/sdk/releases/download/${DFX_VERSION}/dfx-${DFX_VERSION}-x86_64-linux.tar.gz" && \
+    tar -xzf /tmp/dfx.tar.gz -C /tmp && \
+    mv /tmp/dfx /usr/local/bin/dfx && \
+    chmod +x /usr/local/bin/dfx && \
+    rm -rf /tmp/dfx.tar.gz
+
+WORKDIR /app

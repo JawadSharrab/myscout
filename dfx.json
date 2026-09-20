@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "canisters": {
+    "backend": {
+      "type": "custom",
+      "candid": "src/backend/dist/backend.did",
+      "wasm": "src/backend/dist/backend.wasm",
+      "build": ""
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "0.0.0.0:4943",
+      "type": "ephemeral"
+    }
+  }
+}
