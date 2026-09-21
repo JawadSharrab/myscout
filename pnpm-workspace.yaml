@@ -15,7 +15,7 @@ onlyBuiltDependencies:
 ignoredBuiltDependencies:
   - '@dfinity/pic'
 allowBuilds:
-  '@biomejs/biome': set this to true or false
-  '@dfinity/pic': set this to true or false
-  esbuild: set this to true or false
-  sharp: set this to true or false
+  '@biomejs/biome': true
+  '@dfinity/pic': false
+  esbuild: true
+  sharp: true

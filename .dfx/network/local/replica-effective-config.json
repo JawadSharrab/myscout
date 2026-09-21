@@ -1,6 +1,6 @@
 {
   "replica_rev": "719ff387aab462ce5759c4c20c30de959fe9538c",
-  "effective_canister_id": "uqqxf-5h777-77774-qaaaa-cai",
+  "effective_canister_id": null,
   "type": "pocket_ic",
   "config": {
     "http_handler": {

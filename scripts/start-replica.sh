@@ -1,8 +1,11 @@
 #!/bin/bash
 set -e
 
+# Clear stale canister IDs so the frontend service waits for a fresh deploy
+rm -f /app/.dfx/local/canister_ids.json
+
 # Start the local IC replica in the background
-dfx start --host 0.0.0.0 --port 4943 --background
+dfx start --host 0.0.0.0:4943 --background
 
 # Wait for the replica to be healthy
 echo "Waiting for replica to be ready..."
