@@ -2,7 +2,10 @@
 set -e
 
 # Clear stale canister IDs so the frontend service waits for a fresh deploy
-rm -f /app/.dfx/local/canister_ids.json
+rm -f /app/.dfx/local/canister_ids.json /app/.dfx/local/wallets.json
+# Wipe any leftover (possibly incomplete) replica state from previous runs;
+# the backend canister is redeployed fresh on every start anyway.
+rm -rf /app/.dfx/network/local/state
 
 # Start the local IC replica in the background
 dfx start --host 0.0.0.0:4943 --background

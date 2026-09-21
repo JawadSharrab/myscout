@@ -49,4 +49,4 @@ EOF
 echo "Wrote public/env.json"
 
 # Start the Vite dev server
-exec pnpm dev -- --host 0.0.0.0 --port 5173
+exec ./node_modules/.bin/vite --host 0.0.0.0 --port 5173
