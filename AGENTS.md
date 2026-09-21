@@ -35,4 +35,11 @@ When editing `index.html` (e.g. changing the title or favicon):
 
 ## Learnings
 
-[No learnings yet]
+### Base44 dev environment (docker-compose.base44.yml)
+
+- Two services: `replica` (dfx 0.32.0 local IC + backend canister deploy) and `frontend` (Vite dev server on host port 3000).
+- The replica service clears `/app/.dfx/local/state` and `wallets.json` at startup — stale pocket-ic state breaks `dfx start` in containers. Never add wrappers around the pocket-ic binary (relative-path breakage).
+- The frontend waits for `/app/.dfx/local/canister_ids.json`, then writes `src/frontend/public/env.json` (`backend_host`, `backend_canister_id`) from `BASE44_PUBLIC_HOST_SUFFIX`. The HttpAgent uses the same origin and the Vite proxy forwards `/api` to the replica.
+- After editing `scripts/start-*.sh`, restart the affected service — the running shell keeps the old script content.
+- The Vite launch must be `./node_modules/.bin/vite --host 0.0.0.0 --port 5173` (direct exec, no pnpm, no stray `--`).
+- Verify with: `curl http://localhost:3000/` (HTTP 200), `curl http://localhost:3000/api/v2/status` (HTTP 200 through proxy).
